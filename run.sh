@@ -1,7 +1,6 @@
-# 传进container里
-export APP_NAME="工资绩效核算系统"
-export PROJECT_NAME="salary"
-export THEME_NAME="tabler"
+export THEMES=(furtive materialize mazer purecss tabler)
+export RANDOM=$$$(date +%s)
+export THEME_NAME=${THEMES[ $RANDOM % ${#THEMES[@]} ]}
 
 # prepare
 rm -rf $PROJECT_NAME

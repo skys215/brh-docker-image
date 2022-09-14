@@ -8,5 +8,8 @@ services:
     volumes:
       - ./json:/app/json
       - ./docs:/app/docs
-      - ./a.sh:/app/a.sh
+      - ./run.sh:/app/run.sh
+    environment:
+      APP_NAME: ${APP_NAME:-app}
+      PROJECT_NAME: ${PROJECT_NAME:-测试系统}
 
