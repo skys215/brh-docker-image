@@ -10,6 +10,6 @@ services:
       - ./docs:/app/docs
       - ./run.sh:/app/run.sh
     environment:
-      APP_NAME: ${APP_NAME:-app}
-      PROJECT_NAME: ${PROJECT_NAME:-测试系统}
+      APP_NAME: ${APP_NAME:-测试系统}
+      PROJECT_NAME: ${PROJECT_NAME:-app}
 
