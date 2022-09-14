@@ -39,4 +39,5 @@ php artisan dusk
 php artisan ruanzhu:doc
 
 cp $PWD/*.docx /app/docs/
+cp $PWD/env.txt /app/docs
 
