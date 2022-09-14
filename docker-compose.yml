@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  brh:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    volumes:
+      - ./json:/app/json
+      - ./docs:/app/docs
+      - ./a.sh:/app/a.sh
+
