@@ -16,7 +16,7 @@ WORKDIR /app
 RUN mkdir -p /app/json && \
  mkdir -p /app/html && \
  mkdir -p /app/docs
-RUN composer create-project laravel/laravel html "dev-$THEME_NAME" --repository='{"type":"vcs","url":"git@github.com:skys215/brh9.git"}'
+RUN composer create-project laravel/laravel html "dev-furtive" --repository='{"type":"vcs","url":"git@github.com:skys215/brh9.git"}'
 WORKDIR /app/html
 RUN sed -i 's~DB_CONNECTION=mysql~DB_CONNECTION=sqlite~' .env && \
 sed -i "s~DB_DATABASE=laravel~DB_DATABASE=$PWD/db.sqlite~" .env && \
