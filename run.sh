@@ -1,24 +1,4 @@
-export THEMES=(furtive materialize mazer purecss tabler)
-export RANDOM=$$$(date +%s)
-export THEME_NAME=${THEMES[ $RANDOM % ${#THEMES[@]} ]}
-
-# prepare
-rm -rf $PROJECT_NAME
-composer create-project laravel/laravel $PROJECT_NAME "dev-$THEME_NAME" --repository='{"type":"vcs","url":"git@github.com:skys215/brh9.git"}'
-cd $PROJECT_NAME
 sed -i "s~APP_NAME=Laravel~APP_NAME=$APP_NAME~" .env
-sed -i 's~DB_CONNECTION=mysql~DB_CONNECTION=sqlite~' .env
-sed -i "s~DB_DATABASE=laravel~DB_DATABASE=$PWD/db.sqlite~" .env
-chmod -R 777 bootstrap/ storage/
-php artisan dusk:install
-ln -sf /usr/bin/chromedriver ./vendor/laravel/dusk/bin/chromedriver-linux
-chmod -R 0755 vendor/laravel/dusk/bin/
-rm -rf tests/Browser/ExampleTest.php
-
-# db
-touch db.sqlite
-php artisan migrate
-php artisan tinker --execute="\App\Models\User::factory()->create(['name' => 'Super Admin', 'email' => 'admin@admin.com', 'password' => bcrypt('password')]);"
 
 # creation
 # 传进resources/model_schemas里
@@ -39,5 +19,5 @@ php artisan dusk
 php artisan ruanzhu:doc
 
 cp $PWD/*.docx /app/docs/
-cp $PWD/env.txt /app/docs
+cp $PWD/env.txt /app/docs/
 

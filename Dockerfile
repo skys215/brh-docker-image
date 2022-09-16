@@ -16,9 +16,23 @@ WORKDIR /app
 RUN mkdir -p /app/json && \
  mkdir -p /app/html && \
  mkdir -p /app/docs
-ADD run.sh run.sh
+RUN composer create-project laravel/laravel html "dev-$THEME_NAME" --repository='{"type":"vcs","url":"git@github.com:skys215/brh9.git"}'
+WORKDIR /app/html
+RUN sed -i 's~DB_CONNECTION=mysql~DB_CONNECTION=sqlite~' .env && \
+sed -i "s~DB_DATABASE=laravel~DB_DATABASE=$PWD/db.sqlite~" .env && \
+chmod -R 777 bootstrap/ storage/ && \
+php artisan dusk:install && \
+ln -sf /usr/bin/chromedriver ./vendor/laravel/dusk/bin/chromedriver-linux && \
+chmod -R 0755 vendor/laravel/dusk/bin/ && \
+rm -rf tests/Browser/ExampleTest.php && \
+touch db.sqlite && \
+php artisan migrate && \
+php artisan tinker --execute="\\App\\Models\\User::factory()->create(['name' => 'Super Admin', 'email' => 'admin@admin.com', 'password' => bcrypt('password')]);"
 
 WORKDIR /app/html
+RUN rm -rf /var/cache/apk/* && \
+rm -rf /root/.cache && rm -rf /root/.local && rm -rf /root/.config
+
 ENTRYPOINT ["tail"]
 CMD ["-f","/dev/null"]
 
